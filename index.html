@@ -7,47 +7,110 @@
 
 <style>
 body{
-font-family:Arial,sans-serif;
-background:#f4f6f9;
 margin:0;
+font-family:Arial, sans-serif;
+background:linear-gradient(135deg,#0d6efd,#111827);
+color:white;
 text-align:center;
 }
 
+/* الهيدر */
 .header{
-background:#0d6efd;
-color:white;
-padding:20px;
+padding:50px 20px;
 }
 
-.container{
-margin-top:50px;
+.header h1{
+font-size:40px;
+margin:0;
 }
 
+.header p{
+opacity:0.8;
+margin-top:10px;
+}
+
+/* الكارد */
+.card{
+background:white;
+color:#111;
+max-width:400px;
+margin:20px auto;
+padding:25px;
+border-radius:15px;
+box-shadow:0 10px 30px rgba(0,0,0,0.3);
+}
+
+/* الأزرار */
 .btn{
-display:inline-block;
-padding:15px 30px;
+display:block;
+width:80%;
+margin:10px auto;
+padding:15px;
+border-radius:10px;
+text-decoration:none;
+font-weight:bold;
+transition:0.3s;
+}
+
+.login{
 background:#0d6efd;
 color:white;
-text-decoration:none;
-border-radius:10px;
-margin:10px;
 }
+
+.register{
+background:#22c55e;
+color:white;
+}
+
+.btn:hover{
+transform:scale(1.05);
+opacity:0.9;
+}
+
+/* قسم المميزات */
+.features{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:15px;
+margin-top:30px;
+}
+
+.feature{
+background:rgba(255,255,255,0.1);
+padding:15px;
+border-radius:12px;
+width:150px;
+backdrop-filter: blur(5px);
+}
+
 </style>
 </head>
 
 <body>
 
 <div class="header">
-<h1>OnlineNet Bank</h1>
-<p>البنك الإلكتروني</p>
+<h1>🏦 OnlineNet Bank</h1>
+<p>البنك الإلكتروني الذكي لإدارة أموالك</p>
 </div>
 
-<div class="container">
-<h2>مرحباً بك</h2>
+<div class="card">
 
-<a href="#" class="btn">تسجيل الدخول</a>
+<h2>مرحباً بك 👋</h2>
+<p>ابدأ الآن باستخدام حسابك أو أنشئ حساب جديد</p>
 
-<a href="#" class="btn">إنشاء حساب</a>
+<a href="login.html" class="btn login">تسجيل الدخول</a>
+<a href="register.html" class="btn register">إنشاء حساب</a>
+
+</div>
+
+<div class="features">
+
+<div class="feature">💳 تحويل أموال</div>
+<div class="feature">📊 سجل العمليات</div>
+<div class="feature">🔐 حماية الحساب</div>
+<div class="feature">⚡ سرعة عالية</div>
+
 </div>
 
 </body>
