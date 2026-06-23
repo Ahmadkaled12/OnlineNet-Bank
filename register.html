@@ -2,94 +2,37 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>إنشاء حساب</title>
-
-<style>
-body{
-margin:0;
-font-family:Arial;
-background:linear-gradient(135deg,#0d6efd,#198754);
-height:100vh;
-display:flex;
-justify-content:center;
-align-items:center;
-}
-
-.box{
-background:white;
-padding:25px;
-border-radius:12px;
-width:320px;
-box-shadow:0 10px 25px rgba(0,0,0,0.2);
-text-align:center;
-}
-
-h2{
-margin-bottom:15px;
-color:#198754;
-}
-
-input{
-width:100%;
-padding:12px;
-margin:8px 0;
-border:1px solid #ddd;
-border-radius:8px;
-outline:none;
-}
-
-button{
-width:100%;
-padding:12px;
-border:none;
-border-radius:8px;
-background:#198754;
-color:white;
-font-size:16px;
-cursor:pointer;
-}
-
-button:hover{
-background:#157347;
-}
-
-a{
-display:block;
-margin-top:10px;
-color:#0d6efd;
-text-decoration:none;
-}
-</style>
 </head>
 
-<body>
+<body style="font-family:Arial;text-align:center;margin-top:80px">
 
-<div class="box">
 <h2>إنشاء حساب</h2>
 
-<input type="text" id="username" placeholder="اسم المستخدم">
-<input type="email" id="email" placeholder="البريد الإلكتروني">
-<input type="password" id="password" placeholder="كلمة المرور">
+<input id="username" placeholder="اسم المستخدم"><br><br>
+<input id="email" placeholder="البريد الإلكتروني"><br><br>
+<input id="password" type="password" placeholder="كلمة المرور"><br><br>
 
-<button onclick="alert('زر يعمل')">اختبار</button>
+<button onclick="register()">إنشاء حساب</button>
 
-<a href="login.html">لديك حساب؟ تسجيل الدخول</a>
-</div>
+<p id="msg"></p>
 
 <script>
 function register(){
 
-let username = document.getElementById("username").value;
-let email = document.getElementById("email").value;
-let password = document.getElementById("password").value;
+// جلب القيم
+const username = document.getElementById("username").value;
+const email = document.getElementById("email").value;
+const password = document.getElementById("password").value;
 
-if(!username || !email || !password){
-alert("يرجى تعبئة جميع الحقول");
+// التحقق
+if(username === "" || email === "" || password === ""){
+document.getElementById("msg").innerText = "⚠️ يرجى تعبئة كل الحقول";
 return;
 }
 
-let user = {
+// حفظ البيانات
+const user = {
 username: username,
 email: email,
 password: password
@@ -97,8 +40,14 @@ password: password
 
 localStorage.setItem("user", JSON.stringify(user));
 
-alert("تم إنشاء الحساب بنجاح!");
+// نجاح
+document.getElementById("msg").innerText = "✅ تم إنشاء الحساب بنجاح";
+
+// انتقال بعد ثانيتين
+setTimeout(() => {
 window.location.href = "login.html";
+}, 1000);
+
 }
 </script>
 
