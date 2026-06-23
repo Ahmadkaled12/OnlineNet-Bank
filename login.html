@@ -5,7 +5,7 @@
 <title>تسجيل الدخول</title>
 </head>
 
-<body style="font-family:Arial;text-align:center;margin-top:80px">
+<body style="font-family:Arial;text-align:center;margin-top:70px">
 
 <h2>تسجيل الدخول</h2>
 
@@ -19,29 +19,27 @@
 <script>
 function login(){
 
-const username = document.getElementById("username").value;
-const password = document.getElementById("password").value;
+let username = document.getElementById("username").value;
+let password = document.getElementById("password").value;
 
-const storedUser = JSON.parse(localStorage.getItem("user"));
+let users = JSON.parse(localStorage.getItem("users")) || [];
 
-// لا يوجد حساب
-if(!storedUser){
-document.getElementById("msg").innerText = "⚠️ لا يوجد حساب مسجل";
+// البحث عن المستخدم
+let user = users.find(u => u.username === username && u.password === password);
+
+if(!user){
+document.getElementById("msg").innerText = "❌ بيانات غير صحيحة";
 return;
 }
 
-// تحقق البيانات
-if(username === storedUser.username && password === storedUser.password){
+// حفظ المستخدم الحالي
+localStorage.setItem("currentUser", JSON.stringify(user));
 
-document.getElementById("msg").innerText = "✅ تم تسجيل الدخول بنجاح";
+document.getElementById("msg").innerText = "✅ تم الدخول";
 
-setTimeout(() => {
+setTimeout(()=>{
 window.location.href = "home.html";
-}, 1000);
-
-}else{
-document.getElementById("msg").innerText = "❌ اسم المستخدم أو كلمة المرور غير صحيحة";
-}
+},1000);
 
 }
 </script>
