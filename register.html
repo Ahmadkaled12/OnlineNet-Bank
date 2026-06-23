@@ -1,10 +1,52 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>إنشاء حساب</title>
+
+<style>
+body{
+margin:0;
+font-family:Arial;
+background:linear-gradient(135deg,#0d6efd,#198754);
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+}
+
+.box{
+background:white;
+padding:25px;
+border-radius:12px;
+width:320px;
+box-shadow:0 10px 25px rgba(0,0,0,0.2);
+text-align:center;
+}
+
+h2{
+margin-bottom:15px;
+color:#198754;
+}
+
+input{
+width:100%;
+padding:12px;
+margin:8px 0;
+border:1px solid #ddd;
+border-radius:8px;
+outline:none;
+}
+
 button{
 width:100%;
-padding:10px;
+padding:12px;
+border:none;
+border-radius:8px;
 background:#198754;
 color:white;
-border:none;
-border-radius:5px;
+font-size:16px;
 cursor:pointer;
 }
 
@@ -14,9 +56,8 @@ background:#157347;
 
 a{
 display:block;
-text-align:center;
 margin-top:10px;
-color:#198754;
+color:#0d6efd;
 text-decoration:none;
 }
 </style>
@@ -38,16 +79,16 @@ text-decoration:none;
 
 <script>
 function register(){
+
 let username = document.getElementById("username").value;
 let email = document.getElementById("email").value;
 let password = document.getElementById("password").value;
 
-if(username === "" || email === "" || password === ""){
-alert("يرجى ملء جميع الحقول");
+if(!username || !email || !password){
+alert("يرجى تعبئة جميع الحقول");
 return;
 }
 
-// تخزين بسيط في المتصفح (LocalStorage)
 let user = {
 username: username,
 email: email,
