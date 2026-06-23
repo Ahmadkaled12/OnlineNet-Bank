@@ -3,173 +3,52 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>OnlineNet Bank - Dashboard</title>
+<title>OnlineNet Bank</title>
 
 <style>
 body{
+font-family:Arial,sans-serif;
+background:#f4f6f9;
 margin:0;
-font-family:Arial;
-background:#0b1220;
-color:white;
+text-align:center;
 }
 
-/* الشريط العلوي */
-.nav{
-background:#111827;
-padding:15px;
-display:flex;
-justify-content:space-between;
-align-items:center;
-position:sticky;
-top:0;
+.header{
+background:#0d6efd;
+color:white;
+padding:20px;
 }
 
 .container{
-padding:20px;
-max-width:1000px;
-margin:auto;
+margin-top:50px;
 }
 
-/* البطاقات */
-.card{
-background:#1f2937;
-padding:20px;
-border-radius:15px;
-margin-top:15px;
-box-shadow:0 6px 20px rgba(0,0,0,0.3);
-}
-
-.grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
-gap:15px;
-}
-
-.big{
-font-size:26px;
-font-weight:bold;
-}
-
-/* الأزرار */
-button{
-padding:10px;
-border:none;
-border-radius:10px;
-cursor:pointer;
-margin-top:8px;
-}
-
-.blue{background:#3b82f6;color:white;}
-.green{background:#22c55e;color:white;}
-.red{background:#ef4444;color:white;}
-
-a{
-color:#60a5fa;
+.btn{
+display:inline-block;
+padding:15px 30px;
+background:#0d6efd;
+color:white;
 text-decoration:none;
-}
-
-/* ترحيب */
-.welcome{
-font-size:20px;
-margin-top:10px;
+border-radius:10px;
+margin:10px;
 }
 </style>
 </head>
 
 <body>
 
-<div class="nav">
-<h2>🏦 OnlineNet Bank</h2>
-<div>
-<button class="red" onclick="logout()">تسجيل خروج</button>
-</div>
+<div class="header">
+<h1>OnlineNet Bank</h1>
+<p>البنك الإلكتروني</p>
 </div>
 
 <div class="container">
+<h2>مرحباً بك</h2>
 
-<h2 class="welcome" id="user"></h2>
+<a href="#" class="btn">تسجيل الدخول</a>
 
-<div class="grid">
-
-<div class="card">
-<p>💰 الرصيد الحالي</p>
-<div class="big" id="balance">0 $</div>
+<a href="#" class="btn">إنشاء حساب</a>
 </div>
-
-<div class="card">
-<p>💸 تحويل أموال</p>
-<a href="home.html">فتح التحويل</a>
-</div>
-
-<div class="card">
-<p>📊 سجل العمليات</p>
-<a href="home.html">عرض السجل</a>
-</div>
-
-<div class="card">
-<p>👤 حسابي</p>
-<button class="blue" onclick="profile()">عرض البيانات</button>
-</div>
-
-</div>
-
-<div class="card">
-<h3>🚀 أدوات سريعة</h3>
-<button class="green" onclick="addMoney()">+100$ (تجربة)</button>
-</div>
-
-</div>
-
-<script>
-
-// جلب المستخدم
-let currentUser = JSON.parse(localStorage.getItem("currentUser"));
-
-// حماية الصفحة
-if(!currentUser){
-window.location.href="login.html";
-}
-
-document.getElementById("user").innerText =
-"مرحبًا 👋 " + currentUser.username;
-
-document.getElementById("balance").innerText =
-currentUser.balance + " $";
-
-// إضافة رصيد (اختبار)
-function addMoney(){
-let users = JSON.parse(localStorage.getItem("users")) || [];
-
-users.forEach(u=>{
-if(u.username === currentUser.username){
-u.balance += 100;
-currentUser.balance += 100;
-}
-});
-
-localStorage.setItem("users",JSON.stringify(users));
-localStorage.setItem("currentUser",JSON.stringify(currentUser));
-
-document.getElementById("balance").innerText =
-currentUser.balance + " $";
-}
-
-// عرض البروفايل
-function profile(){
-alert(
-"👤 " + currentUser.username +
-"\n📧 " + currentUser.email +
-"\n💰 الرصيد: " + currentUser.balance
-);
-}
-
-// تسجيل خروج
-function logout(){
-localStorage.removeItem("currentUser");
-window.location.href="login.html";
-}
-
-</script>
 
 </body>
 </html>
