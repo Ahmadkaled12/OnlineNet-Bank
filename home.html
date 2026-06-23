@@ -3,48 +3,123 @@
 <head>
 <meta charset="UTF-8">
 <title>OnlineNet Bank</title>
+
+<style>
+body{
+margin:0;
+font-family:Arial;
+background:#0f172a;
+color:white;
+}
+
+.nav{
+background:#111827;
+padding:15px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.container{
+padding:20px;
+max-width:900px;
+margin:auto;
+}
+
+.card{
+background:#1f2937;
+padding:20px;
+border-radius:12px;
+margin-top:15px;
+}
+
+input{
+width:100%;
+padding:10px;
+margin:5px 0;
+border-radius:8px;
+border:none;
+outline:none;
+}
+
+button{
+padding:10px;
+border:none;
+border-radius:8px;
+cursor:pointer;
+margin-top:5px;
+}
+
+.green{background:#22c55e;color:white;}
+.red{background:#ef4444;color:white;}
+.blue{background:#3b82f6;color:white;}
+
+.history{
+background:#111827;
+padding:10px;
+border-radius:8px;
+margin-top:5px;
+font-size:14px;
+}
+</style>
 </head>
 
-<body style="font-family:Arial;text-align:center;margin-top:50px">
+<body>
 
-<h1>🏦 OnlineNet Bank</h1>
+<div class="nav">
+<h2>🏦 OnlineNet Bank</h2>
+<button class="red" onclick="logout()">خروج</button>
+</div>
+
+<div class="container">
 
 <h2 id="user"></h2>
 
-<p>رصيدك الحالي:</p>
+<div class="card">
+<h3>💰 الرصيد</h3>
 <h1 id="balance"></h1>
+</div>
 
-<hr>
-
+<div class="card">
 <h3>💸 تحويل أموال</h3>
 
-<input id="toUser" placeholder="اسم المستخدم المستلم"><br><br>
-<input id="amount" type="number" placeholder="المبلغ"><br><br>
+<input id="toUser" placeholder="اسم المستلم">
+<input id="amount" type="number" placeholder="المبلغ">
 
-<button onclick="transfer()">إرسال</button>
+<button class="blue" onclick="transfer()">إرسال</button>
 
 <p id="msg"></p>
+</div>
 
-<hr>
+<div class="card">
+<h3>➕ إضافة (اختبار)</h3>
+<button class="green" onclick="addMoney()">+100$</button>
+</div>
 
-<button onclick="addMoney()">إضافة 100$ (تجربة)</button>
-<button onclick="logout()">تسجيل خروج</button>
+<div class="card">
+<h3>📊 سجل العمليات</h3>
+<div id="history"></div>
+</div>
+
+</div>
 
 <script>
 
 let currentUser = JSON.parse(localStorage.getItem("currentUser"));
+let users = JSON.parse(localStorage.getItem("users")) || [];
+let history = JSON.parse(localStorage.getItem("history")) || [];
 
+// حماية الصفحة
 if(!currentUser){
 window.location.href = "login.html";
 }
 
-// عرض البيانات
 document.getElementById("user").innerText = "👤 " + currentUser.username;
 document.getElementById("balance").innerText = currentUser.balance + " $";
 
-// إضافة رصيد (للاختبار)
+showHistory();
+
 function addMoney(){
-let users = JSON.parse(localStorage.getItem("users"));
 
 for(let u of users){
 if(u.username === currentUser.username){
@@ -53,19 +128,16 @@ currentUser.balance += 100;
 }
 }
 
-localStorage.setItem("users", JSON.stringify(users));
-localStorage.setItem("currentUser", JSON.stringify(currentUser));
+history.push({
+type:"إضافة",
+user:currentUser.username,
+amount:100,
+date:new Date().toLocaleString()
+});
 
-document.getElementById("balance").innerText = currentUser.balance + " $";
+saveAll();
 }
 
-// تحويل الأموال
 function transfer(){
 
-let toUser = document.getElementById("toUser").value;
-let amount = Number(document.getElementById("amount").value);
-
-let users = JSON.parse(localStorage.getItem("users")) || [];
-
-if(toUser === "" || amount <= 0){
-document.getElementById("msg").innerText = "⚠️ أد
+let to = document.getElement
