@@ -1,1 +1,87 @@
 
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>Admin Panel</title>
+
+<style>
+body{font-family:Arial;background:#0b1220;color:white;text-align:center}
+.card{background:#1f2937;margin:20px;padding:15px;border-radius:10px}
+button{padding:8px;margin:5px;border:none;border-radius:6px;cursor:pointer}
+.red{background:red;color:white}
+.blue{background:#3b82f6;color:white}
+</style>
+</head>
+
+<body>
+
+<h1>👑 Admin Panel</h1>
+
+<div class="card">
+<h3>📊 إحصائيات</h3>
+<p id="stats"></p>
+</div>
+
+<div class="card">
+<h3>👥 المستخدمون</h3>
+<div id="users"></div>
+</div>
+
+<button onclick="logout()" class="red">خروج</button>
+
+<script>
+
+let currentUser = JSON.parse(localStorage.getItem("currentUser"));
+let users = JSON.parse(localStorage.getItem("users")) || [];
+
+// حماية
+if(!currentUser || currentUser.role !== "admin"){
+window.location.href="login.html";
+}
+
+// إحصائيات
+function loadStats(){
+let totalMoney = users.reduce((sum,u)=>sum+u.balance,0);
+
+document.getElementById("stats").innerHTML =
+"عدد المستخدمين: " + users.length +
+"<br>إجمالي الأموال: " + totalMoney + "$";
+}
+
+// عرض المستخدمين
+function loadUsers(){
+let html="";
+
+users.forEach((u,i)=>{
+html += `
+<div class="card">
+<p>👤 ${u.username} | 💰 ${u.balance}$ | 🧾 ${u.role}</p>
+<button class="red" onclick="deleteUser(${i})">حذف</button>
+</div>
+`;
+});
+
+document.getElementById("users").innerHTML = html;
+}
+
+// حذف مستخدم
+function deleteUser(i){
+users.splice(i,1);
+localStorage.setItem("users",JSON.stringify(users));
+loadUsers();
+loadStats();
+}
+
+function logout(){
+localStorage.removeItem("currentUser");
+window.location.href="login.html";
+}
+
+loadUsers();
+loadStats();
+
+</script>
+
+</body>
+</html>
