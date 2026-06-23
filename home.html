@@ -5,18 +5,29 @@
 <title>OnlineNet Bank</title>
 </head>
 
-<body style="font-family:Arial;text-align:center;margin-top:70px">
+<body style="font-family:Arial;text-align:center;margin-top:50px">
 
 <h1>🏦 OnlineNet Bank</h1>
 
-<h2>مرحبًا بك</h2>
-
 <h2 id="user"></h2>
 
-<p>رصيدك:</p>
+<p>رصيدك الحالي:</p>
 <h1 id="balance"></h1>
 
-<button onclick="addMoney()">إضافة 100$</button>
+<hr>
+
+<h3>💸 تحويل أموال</h3>
+
+<input id="toUser" placeholder="اسم المستخدم المستلم"><br><br>
+<input id="amount" type="number" placeholder="المبلغ"><br><br>
+
+<button onclick="transfer()">إرسال</button>
+
+<p id="msg"></p>
+
+<hr>
+
+<button onclick="addMoney()">إضافة 100$ (تجربة)</button>
 <button onclick="logout()">تسجيل خروج</button>
 
 <script>
@@ -27,11 +38,12 @@ if(!currentUser){
 window.location.href = "login.html";
 }
 
-document.getElementById("user").innerText = currentUser.username;
+// عرض البيانات
+document.getElementById("user").innerText = "👤 " + currentUser.username;
 document.getElementById("balance").innerText = currentUser.balance + " $";
 
+// إضافة رصيد (للاختبار)
 function addMoney(){
-
 let users = JSON.parse(localStorage.getItem("users"));
 
 for(let u of users){
@@ -47,12 +59,13 @@ localStorage.setItem("currentUser", JSON.stringify(currentUser));
 document.getElementById("balance").innerText = currentUser.balance + " $";
 }
 
-function logout(){
-localStorage.removeItem("currentUser");
-window.location.href = "login.html";
-}
+// تحويل الأموال
+function transfer(){
 
-</script>
+let toUser = document.getElementById("toUser").value;
+let amount = Number(document.getElementById("amount").value);
 
-</body>
-</html>
+let users = JSON.parse(localStorage.getItem("users")) || [];
+
+if(toUser === "" || amount <= 0){
+document.getElementById("msg").innerText = "⚠️ أد
