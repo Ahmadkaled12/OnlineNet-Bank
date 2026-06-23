@@ -5,9 +5,9 @@
 <title>إنشاء حساب</title>
 </head>
 
-<body style="font-family:Arial;text-align:center;margin-top:80px">
+<body style="font-family:Arial;text-align:center;margin-top:70px">
 
-<h2>إنشاء حساب</h2>
+<h2>إنشاء حساب جديد</h2>
 
 <input id="username" placeholder="اسم المستخدم"><br><br>
 <input id="email" placeholder="البريد الإلكتروني"><br><br>
@@ -20,33 +20,36 @@
 <script>
 function register(){
 
-// جلب القيم
-const username = document.getElementById("username").value;
-const email = document.getElementById("email").value;
-const password = document.getElementById("password").value;
+let username = document.getElementById("username").value;
+let email = document.getElementById("email").value;
+let password = document.getElementById("password").value;
 
-// التحقق
-if(username === "" || email === "" || password === ""){
-document.getElementById("msg").innerText = "⚠️ يرجى تعبئة كل الحقول";
+if(!username || !email || !password){
+document.getElementById("msg").innerText = "⚠️ املأ كل الحقول";
 return;
 }
 
-// حفظ البيانات
-const user = {
+// جلب كل المستخدمين
+let users = JSON.parse(localStorage.getItem("users")) || [];
+
+// إنشاء مستخدم جديد مع رصيد
+let newUser = {
 username: username,
 email: email,
-password: password
+password: password,
+balance: 1000
 };
 
-localStorage.setItem("user", JSON.stringify(user));
+users.push(newUser);
 
-// نجاح
-document.getElementById("msg").innerText = "✅ تم إنشاء الحساب بنجاح";
+// حفظهم
+localStorage.setItem("users", JSON.stringify(users));
 
-// انتقال بعد ثانيتين
-setTimeout(() => {
+document.getElementById("msg").innerText = "✅ تم إنشاء الحساب";
+
+setTimeout(()=>{
 window.location.href = "login.html";
-}, 1000);
+},1000);
 
 }
 </script>
