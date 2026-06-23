@@ -13,6 +13,13 @@
 <input id="email" placeholder="البريد الإلكتروني"><br><br>
 <input id="password" type="password" placeholder="كلمة المرور"><br><br>
 
+<select id="role">
+<option value="user">مستخدم</option>
+<option value="admin">مدير (Admin)</option>
+</select>
+
+<br><br>
+
 <button onclick="register()">إنشاء حساب</button>
 
 <p id="msg"></p>
@@ -20,37 +27,27 @@
 <script>
 function register(){
 
-let username = document.getElementById("username").value;
-let email = document.getElementById("email").value;
-let password = document.getElementById("password").value;
-
-if(!username || !email || !password){
-document.getElementById("msg").innerText = "⚠️ املأ كل الحقول";
-return;
-}
-
-// جلب كل المستخدمين
 let users = JSON.parse(localStorage.getItem("users")) || [];
 
-// إنشاء مستخدم جديد مع رصيد
-let newUser = {
-username: username,
-email: email,
-password: password,
+let user = {
+username: document.getElementById("username").value,
+email: document.getElementById("email").value,
+password: document.getElementById("password").value,
+role: document.getElementById("role").value,
 balance: 1000
 };
 
-users.push(newUser);
+if(!user.username || !user.email || !user.password){
+document.getElementById("msg").innerText="⚠️ املأ كل الحقول";
+return;
+}
 
-// حفظهم
+users.push(user);
 localStorage.setItem("users", JSON.stringify(users));
 
-document.getElementById("msg").innerText = "✅ تم إنشاء الحساب";
+document.getElementById("msg").innerText="✅ تم إنشاء الحساب";
 
-setTimeout(()=>{
-window.location.href = "login.html";
-},1000);
-
+setTimeout(()=>window.location.href="login.html",1000);
 }
 </script>
 
